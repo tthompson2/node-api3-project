@@ -1,19 +1,21 @@
-// code away!
-
 const express = require("express");
 const cors = require("cors");
-const logger = require("./middleware/logger");
+const morgan = require("morgan")
+// const logger = require("./middleware/logger");
 const userRouter = require("./users/userRouter");
 const welcomeRouter = require("./welcome/welcomeRouter");
+const postRouter = require("./posts/postRouter");
 
 const server = express();
 const port = 4003;
 
 server.use(express.json);
 server.use(cors());
+server.use(morgan())
 
 server.use("/", welcomeRouter);
 server.use("/users", userRouter);
+server.use("/post", postRouter);
 
 server.use((req, res) => {
     res.status(404).json ({

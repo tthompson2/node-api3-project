@@ -55,7 +55,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/posts/:postID', (req, res) => {
   
   users.getUserPosts(req.params.postID)
-  .then((posts) => {
+  .then((blog) => {
     res.status(200).json(blog);
   })
   .catch((error) => {
