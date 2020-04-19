@@ -3,20 +3,17 @@ const posts = require("./postDb");
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   posts.get()
     .then((blog) => {
       res.status(200).json(blog)
     })
     .catch((error) => {
-      console.log(error);
-      res.status(500).json({
-        message: "Cannot retireve post"
-      })
+       next(error)
     })
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validatePostId(), (req, res) => {
 
   posts.getById(req.params.id)
     .then((blog) => {
@@ -31,7 +28,7 @@ router.get('/:id', (req, res) => {
 
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validatePostId(), (req, res) => {
 
   post.remove(req.params.id)
     .then((blog) => {
@@ -46,7 +43,7 @@ router.delete('/:id', (req, res) => {
 
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validatePostId(), (req, res) => {
 
   post.update(req.params.id)
     .then((blog) => {
@@ -65,8 +62,9 @@ router.put('/:id', (req, res) => {
 function validatePostId() {
   return (req, res, next) => {
     post.getById(req.params.id)
-      .then(() => {
+      .then((post) => {
         if (post) {
+          req.post = post;
           // needs to drill down to the data that we want to pass to the functions
           next()
         }

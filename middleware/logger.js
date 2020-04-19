@@ -1,12 +1,12 @@
-modeule.exports = (format) => {
+modeule.exports = (options) => {
     (req, res, next) => {
-        switch(format) {
+        switch(options.format) {
             case "short":
                 console.log(`${req.method} ${req.url}`)
                 break
             case "long":
             default:
-                console.log(`${new.Date().toISOString()} ${req.ip} ${req.method} ${req.url}`)
+                console.log(`${new Date().toISOString()} ${req.ip} ${req.method} ${req.url}`)
                 break
         }
         next()
