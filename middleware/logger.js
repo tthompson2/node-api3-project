@@ -1,4 +1,4 @@
-modeule.exports = (options) => {
+module.exports = (options) => {
     (req, res, next) => {
         switch(options.format) {
             case "short":
