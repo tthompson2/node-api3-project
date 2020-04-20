@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
   posts.get()
     .then((blog) => {
+      console.log(blog)
       res.status(200).json(blog)
     })
     .catch((error) => {

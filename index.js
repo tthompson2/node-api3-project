@@ -9,7 +9,7 @@ const postRouter = require("./posts/postRouter");
 const server = express();
 const port = 4003;
 
-server.use(express.json);
+server.use(express.json());
 server.use(cors());
 //server.use(morgan())
 

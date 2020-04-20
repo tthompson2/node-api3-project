@@ -4,8 +4,11 @@ const router = express.Router();
 
 router.post('/', (req, res, next) => {
 
+  console.log("test");
+
   users.insert(req.body)
     .then((blog) => {
+      console.log(blog)
       res.status(200).json(blog)
     })
     .catch((error) => {
@@ -20,8 +23,11 @@ router.post('/:id/posts', validatePost(), (req, res) => {
 
 router.get('/', (req, res, next) => {
 
+  console.log("test")
+
   users.get()
     .then((blog) => {
+      console.log(blog);
       res.status(200).json(blog);
     })
     .catch((error) => {
